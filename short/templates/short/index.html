@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    <h1>Short url</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <form action="{% url 'url:short-url' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {% for field in url_short_form %}
+                                <div class="form-group {% if not field.errors %} errors {% endif %}">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {{ field.errors }}
+                                </div>
+                            {% endfor %}
+                            {% if urls %}
+                                <div class="form-group col-md-3">
+                                    <label for="url_key">Short Url:</label>
+                                    <input type="text" name="url_key"
+                                           value="{% url 'url:redirect-url' urls.url_key %}" class="form-control" disabled>
+                                </div>
+                                 <div class="form-group col-md-3">
+                                    <label for="url_key">
+                                        <a href="{% url 'url:url-stats' %}?url_key={{ urls.url_key }}">Statistic</a>
+                                    </label>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Short</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+{% endblock %}
+

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    <h1>Statistic</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <form action="{% url 'url:url-stats' %}?url_key={{ url_key }}" method="GET">
+                        <div class="card-body">
+                            <div class="form-group col-md-3">
+                                <label for="url_key">Url key:</label>
+                                <input type="text" name="url_key"
+                                       value="{{ url_key }}" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Show Stats</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Url stats</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Ip</th>
+                                <th>Country/City</th>
+                                <th>Location</th>
+                                <th>Timezone</th>
+                                <th>Browser</th>
+                                <th>OS</th>
+                                <th>Device</th>
+                                <th>Is PC</th>
+                                <th>Is Mobile</th>
+                                <th>Is Tablet</th>
+                                <th>Is Bot</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for url_stat in url_stats %}
+                                <tr>
+                                    <td>{{ url_stat.id }}</td>
+                                    <td>{{ url_stat.ip }}</td>
+                                    <td>{{ url_stat.country_name }} / {{ url_stat.city }}</td>
+                                    <td>{{ url_stat.latitude }} / {{ url_stat.longitude }}</td>
+                                    <td>{{ url_stat.timezone }}</td>
+                                    <td>{{ url_stat.browser }}</td>
+                                    <td>{{ url_stat.os }}</td>
+                                    <td>{{ url_stat.device }}</td>
+                                    <td>{{ url_stat.is_pc }}</td>
+                                    <td>{{ url_stat.is_mobile }}</td>
+                                    <td>{{ url_stat.is_tablet }}</td>
+                                    <td>{{ url_stat.is_bot }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if url_stats.has_previous %}
+                                    <a href="?page=1">&laquo; first</a>
+                                    <a href="?page={{ url_stats.previous_page_number }}">previous</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Page {{ url_stats.number }} of {{ url_stats.paginator.num_pages }}.
+                                </span>
+
+                                {% if url_stats.has_next %}
+                                    <a href="?page={{ url_stats.next_page_number }}">next</a>
+                                    <a href="?page={{ url_stats.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination">
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+{% endblock %}
+
