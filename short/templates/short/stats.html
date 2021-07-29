@@ -29,6 +29,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Url stats</h3>
+                        {% if url_key %}
+                        <div class="card-tools">
+                            <form action="{% url 'url:url-stats-export' url_key %}" method="POST">
+                                {% csrf_token %}
+                                <button class="btn btn-block btn-secondary">Export</button>
+                            </form>
+                        </div>
+                        {% endif %}
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

@@ -3,6 +3,7 @@ from django.db import models
 class Urls (models.Model):
     original_url = models.CharField(max_length=2083,db_index=True)
     url_key = models.CharField(max_length=50,unique=True,db_index=True)
+    password = models.CharField(max_length=100,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -33,7 +34,3 @@ class StatsUrl (models.Model):
     is_touch_capable = models.BooleanField(null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
-
-
-    def __str__(self):
-        return self.url_key

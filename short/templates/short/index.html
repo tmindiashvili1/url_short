@@ -31,6 +31,11 @@
                                         <a href="{% url 'url:url-stats' %}?url_key={{ urls.url_key }}">Statistic</a>
                                     </label>
                                 </div>
+                                <div class="form-group col-md-3">
+                                    <label for="url_key">
+                                        <a href="{% url 'url:redirect-url' urls.url_key %}">Redirect url</a>
+                                    </label>
+                                </div>
                             {% endif %}
                         </div>
 

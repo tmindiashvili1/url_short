@@ -5,6 +5,7 @@ class UrlShortForm(forms.Form):
         "required": "Your url must not be empty",
         "max_length": "Please enter a shorter url"
     })
+    password = forms.CharField(required=False, label='Password',widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
         super(UrlShortForm, self).__init__(*args, **kwargs)
